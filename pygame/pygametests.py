@@ -214,7 +214,7 @@ def Kollision():
 linkeWand = pygame.draw.rect(screen, (0,0,0), (0,0,2,600), 0)
 rechteWand = pygame.draw.rect(screen, (0,0,0), (1199,0,2,600), 0)
 spieler1 = spieler(300,391,4,96,128,-16,[0,0,1,0],0,0)
-zombie1 = Zombie(600, 393, 6, 96, 128, [0,0,1,0], 40, 1090)
+zombie1 = Zombie(600, 393, 8, 96, 128, [0,0,1,0], 40, 1090)
 verloren = False
 gewonnen = False
 kugeln = []
