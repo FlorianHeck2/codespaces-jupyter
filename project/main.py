@@ -32,6 +32,19 @@ class spieler:
              self.y -= geschw
         elif Liste[3]:
              self.y += geschw
+    def anderslaufen(self, Liste):
+        if Liste[1]:
+             self.x -= self.geschw
+             self.richtg = [1,0,0,0]
+             self.schritteLinks += 1
+        elif Liste[0]:
+             self.x += self.geschw
+             self.richtg = [0,1,0,0]
+             self.schritteRechts += 1
+        elif Liste[3]:
+             self.y -= self.geschw
+        elif Liste[2]:
+             self.y += self.geschw
 
 
 screen = pygame.display.set_mode([1290,717])#Erzeugt Fenster mit Höhe und Breite in Pixeln
@@ -57,26 +70,25 @@ while Go:
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
-    laengelist = 0
     for wall in Walls: 
-        laengelist += 1 
-        if not spielerrechteck.colliderect(wall):
+        if spielerrechteck.colliderect(wall):
              counter += 1
-        if counter == 4:
-            if gedrueckt[pygame.K_RIGHT] and not spielerrechteck.colliderect(rechteWand):# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
-                spieler1.laufen([0,1,0,0], spieler1.geschw)
-                richtung = [0,1,0,0]
-            elif gedrueckt[pygame.K_LEFT]: #and not spielerRechteck.colliderect(linkeWand):#Pfeiltaste links
-                spieler1.laufen([1,0,0,0], spieler1.geschw)
-                richtung = [1,0,0,0]
-            elif gedrueckt[pygame.K_UP]:
-                spieler1.laufen([0,0,1,0], spieler1.geschw)
-                richtung = [0,0,1,0]
-            elif gedrueckt[pygame.K_DOWN]:
-                spieler1.laufen([0,0,0,1], spieler1.geschw)
-                richtung = [0,0,0,1]
-        else:
-            spieler1.laufen(richtung, -1* (spieler1.geschw))
+    if counter == 0:
+        if gedrueckt[pygame.K_RIGHT] and not spielerrechteck.colliderect(rechteWand):# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
+            spieler1.laufen([0,1,0,0], spieler1.geschw)
+            richtung = [0,1,0,0]
+        elif gedrueckt[pygame.K_LEFT]: #and not spielerRechteck.colliderect(linkeWand):#Pfeiltaste links
+            spieler1.laufen([1,0,0,0], spieler1.geschw)
+            richtung = [1,0,0,0]
+        elif gedrueckt[pygame.K_UP]:
+            spieler1.laufen([0,0,1,0], spieler1.geschw)
+            richtung = [0,0,1,0]
+        elif gedrueckt[pygame.K_DOWN]:
+            spieler1.laufen([0,0,0,1], spieler1.geschw)
+            richtung = [0,0,0,1]
+    else:
+        if gedrueckt[pygame.K_RIGHT] or gedrueckt[pygame.K_LEFT] or gedrueckt[pygame.K_UP] or gedrueckt[pygame.K_DOWN]:
+            spieler1.laufen(richtung, spieler1.geschw)
 
     
     #richtung = [0,0,0,0,1] Links,Rechts, Hoch, Runter, Stehen
