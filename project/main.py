@@ -52,10 +52,12 @@ clock = pygame.time.Clock()
 spieler1 = spieler(100,191,4,42,46,[0,0,0,0,1],0,0)
 
 linkeWand = pygame.draw.rect(screen, (0,0,0), (0,0,2,717), 0)
+obereWand = pygame.draw.rect(screen, (0,0,0), (0,0,1278,1),0)
 rechteWand = pygame.draw.rect(screen, (0,0,0), (1278,0,2,717), 0)
+untereWand = pygame.draw.rect(screen, (0,0,0), (0,716,1278,717),0)
 barrier1 = pygame.draw.rect(screen, (0,0,0),(800, 112, 77, 456), 0)
-barrier2 = pygame.draw.rect(screen, (0,0,0),(0, 397, 677, 444), 0)
-Walls = [rechteWand, linkeWand, barrier1, barrier2]
+barrier2 = pygame.draw.rect(screen, (0,0,0),(0, 397, 677, 82), 0)
+Walls = [rechteWand, linkeWand, obereWand, barrier1, barrier2, untereWand]
 richtung = [1,0,0,0]
 Go = True
 
@@ -70,25 +72,25 @@ while Go:
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
+    
+    
+    if gedrueckt[pygame.K_RIGHT] and not spielerrechteck.colliderect(rechteWand):# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
+        spieler1.laufen([0,1,0,0], spieler1.geschw)
+        richtung = [0,1,0,0]
+    elif gedrueckt[pygame.K_LEFT]: #and not spielerRechteck.colliderect(linkeWand):#Pfeiltaste links
+        spieler1.laufen([1,0,0,0], spieler1.geschw)
+        richtung = [1,0,0,0]
+    elif gedrueckt[pygame.K_UP]:
+        spieler1.laufen([0,0,1,0], spieler1.geschw)
+        richtung = [0,0,1,0]
+    elif gedrueckt[pygame.K_DOWN]:
+        spieler1.laufen([0,0,0,1], spieler1.geschw)
+        richtung = [0,0,0,1]
     for wall in Walls: 
         if spielerrechteck.colliderect(wall):
              counter += 1
-    if counter == 0:
-        if gedrueckt[pygame.K_RIGHT] and not spielerrechteck.colliderect(rechteWand):# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
-            spieler1.laufen([0,1,0,0], spieler1.geschw)
-            richtung = [0,1,0,0]
-        elif gedrueckt[pygame.K_LEFT]: #and not spielerRechteck.colliderect(linkeWand):#Pfeiltaste links
-            spieler1.laufen([1,0,0,0], spieler1.geschw)
-            richtung = [1,0,0,0]
-        elif gedrueckt[pygame.K_UP]:
-            spieler1.laufen([0,0,1,0], spieler1.geschw)
-            richtung = [0,0,1,0]
-        elif gedrueckt[pygame.K_DOWN]:
-            spieler1.laufen([0,0,0,1], spieler1.geschw)
-            richtung = [0,0,0,1]
-    else:
-        if gedrueckt[pygame.K_RIGHT] or gedrueckt[pygame.K_LEFT] or gedrueckt[pygame.K_UP] or gedrueckt[pygame.K_DOWN]:
-            spieler1.laufen(richtung, spieler1.geschw)
+    if counter != 0:
+        spieler1.anderslaufen(richtung)
 
     
     #richtung = [0,0,0,0,1] Links,Rechts, Hoch, Runter, Stehen
