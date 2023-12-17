@@ -17,7 +17,7 @@ class spieler:
         self.richtg = richtg
         self.schritteLinks = schritteLinks
         self.schritteRechts = schritteRechts
-        self.last = [1,0]
+        self.last = [0,0,0,0]
         self.ok = True  
     def laufen(self, Liste, geschw):
         if Liste[0]:
