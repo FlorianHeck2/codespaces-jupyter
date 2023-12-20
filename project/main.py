@@ -32,7 +32,7 @@ class spieler:
              self.y -= geschw
         elif Liste[3]:
              self.y += geschw
-    def anderslaufen(self, Liste):
+    def anderslaufen(self, Liste): #nicht notwendig
         if Liste[1]:
              self.x -= self.geschw
              self.richtg = [1,0,0,0]
@@ -63,18 +63,16 @@ Go = True
 
 while Go:
     spielerrechteck = pygame.Rect(spieler1.x, spieler1.y, 42, 46) 
-
-    screen.fill((100,146,95))
     screen.blit(hintergrund, (0,0))
-    screen.blit(linksgehen, (spieler1.x,spieler1.y))
-    screen.blit(Fackelschein, (spieler1.x-1900, spieler1.y-1050))
     gedrueckt = pygame.key.get_pressed()
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
+    savex=spieler1.x
+    savey=spieler1.y
     
     
-    if gedrueckt[pygame.K_RIGHT] and not spielerrechteck.colliderect(rechteWand):# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
+    if gedrueckt[pygame.K_RIGHT]:# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
         spieler1.laufen([0,1,0,0], spieler1.geschw)
         richtung = [0,1,0,0]
     elif gedrueckt[pygame.K_LEFT]: #and not spielerRechteck.colliderect(linkeWand):#Pfeiltaste links
@@ -90,7 +88,12 @@ while Go:
         if spielerrechteck.colliderect(wall):
              counter += 1
     if counter != 0:
-        spieler1.anderslaufen(richtung)
+        spieler1.x=savex
+        spieler1.y=savey
+    
+    
+    screen.blit(linksgehen, (spieler1.x,spieler1.y))    
+    screen.blit(Fackelschein, (spieler1.x-1900, spieler1.y-1050))
 
     
     #richtung = [0,0,0,0,1] Links,Rechts, Hoch, Runter, Stehen

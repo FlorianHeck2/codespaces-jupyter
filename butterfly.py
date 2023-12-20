@@ -1,5 +1,5 @@
 
-max = 10
+max = 7
 for x in range(2):
     for l in range (max-1):
         print(" ", end=" ")
