@@ -60,16 +60,20 @@ barrier2 = pygame.draw.rect(screen, (0,0,0),(0, 397, 677, 82), 0)
 Walls = [rechteWand, linkeWand, obereWand, barrier1, barrier2, untereWand]
 richtung = [1,0,0,0]
 Go = True
-
+savex = 42
+savey = 46
+save2x = 42
+save2y = 46
 while Go:
+    move = True
     spielerrechteck = pygame.Rect(spieler1.x, spieler1.y, 42, 46) 
     screen.blit(hintergrund, (0,0))
     gedrueckt = pygame.key.get_pressed()
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
-    savex=spieler1.x
-    savey=spieler1.y
+
+
     
     
     if gedrueckt[pygame.K_RIGHT]:# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
@@ -84,18 +88,26 @@ while Go:
     elif gedrueckt[pygame.K_DOWN]:
         spieler1.laufen([0,0,0,1], spieler1.geschw)
         richtung = [0,0,0,1]
+    else:
+        move = False
+ 
     for wall in Walls: 
         if spielerrechteck.colliderect(wall):
              counter += 1
     if counter != 0:
-        spieler1.x=savex
-        spieler1.y=savey
+        if move == True:
+            spieler1.x=save2x
+            spieler1.y=save2y
     
     
     screen.blit(linksgehen, (spieler1.x,spieler1.y))    
     screen.blit(Fackelschein, (spieler1.x-1900, spieler1.y-1050))
+    if savex != spieler1.x or savey != spieler1.y:
+        save2x = savex
+        save2y = savey
 
-    
+        savex = spieler1.x
+        savey = spieler1.y
     #richtung = [0,0,0,0,1] Links,Rechts, Hoch, Runter, Stehen
     clock.tick(30)
     pygame.display.update()
