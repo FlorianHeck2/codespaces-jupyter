@@ -70,6 +70,7 @@ barrier3 = pygame.draw.rect(screen, (100,100,100),(0, 250, 677, 82), 0)
 door = pygame.draw.rect(screen, (100,100,100),(657, 332, 20, 66), 0)
 Walls = [rechteWand, linkeWand, obereWand, barrier1, barrier2, barrier3, untereWand, door]
 richtung = [1,0,0,0]
+dorrad = pygame.draw.rect(screen,(0,0,0), (630, 332, 90, 66), 0) #Radius um Tür für Interaktion
 Go = True
 savex = 10
 savey = 350
@@ -86,14 +87,15 @@ while Go:
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
     if gedrueckt[pygame.K_e]:
-        if doorcount <= 0:
-            if door in Walls: Walls.remove(door)
-            if Tuere == False:
-                Tuere = True
-            else: 
-                Tuere = False
-                Walls.append(door)
-            doorcount = 20
+            if spielerrechteck.colliderect(dorrad):
+                if doorcount <= 0:
+                    if door in Walls: Walls.remove(door)
+                    if Tuere == False:
+                        Tuere = True
+                    else: 
+                        Tuere = False
+                        Walls.append(door)
+                    doorcount = 20
     doorcount -= 1 #Zählvariable, um "Türspammen" zu verhindern
     
     if gedrueckt[pygame.K_RIGHT]:# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
