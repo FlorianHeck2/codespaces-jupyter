@@ -86,7 +86,8 @@ while Go:
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
         if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
     counter = 0
-    if gedrueckt[pygame.K_e]:
+    if doorcount != 0: doorcount -= 1 #Zählvariable, um "Türspammen" zu verhindern
+    elif gedrueckt[pygame.K_e]:
             if spielerrechteck.colliderect(dorrad):
                 if doorcount <= 0:
                     if door in Walls: Walls.remove(door)
@@ -96,7 +97,7 @@ while Go:
                         Tuere = False
                         Walls.append(door)
                     doorcount = 20
-    doorcount -= 1 #Zählvariable, um "Türspammen" zu verhindern
+    
     
     if gedrueckt[pygame.K_RIGHT]:# and not spielerRechteck.colliderect(rechteWand):#Pfeiltaste rechts
         spieler1.laufen([0,1,0,0], spieler1.geschw)
