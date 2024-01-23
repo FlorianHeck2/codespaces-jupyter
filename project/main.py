@@ -7,7 +7,10 @@ runtergehen = pygame.image.load("project/Grafiken/Mainbild.png")
 Fackelschein = pygame.image.load("project/Grafiken/blurr.png")
 hintergrund = pygame.image.load("project/Grafiken/background.png")
 Tuere = False
-
+def winning():
+    print("you won")
+    global Go
+    Go=False
 class spieler:
     def __init__(self,x,y,geschw,breite,hoehe,richtg,schritteLinks,schritteRechts):
         self.x = x
@@ -33,6 +36,7 @@ class spieler:
              self.y -= geschw
         elif Liste[3]:
              self.y += geschw
+        if spielerrechteck.colliderect(ziel): winning()
     def anderslaufen(self, Liste): #nicht notwendig
         if Liste[1]:
              self.x -= self.geschw
@@ -53,7 +57,12 @@ def zeichnen():
     else:  
         door = pygame.draw.rect(screen, (100,100,100),(657, 332, 66, 5), 0)
         
+    
+    
+    ziel = pygame.draw.rect(screen, (200,10,47), (1200, 100, 50,50), 0)
+    barrier4 = pygame.draw.rect(screen, (200,200,100),(0, 250, 677, 82), 0)
     screen.blit(Fackelschein, (spieler1.x-1900, spieler1.y-1050))
+    screen.blit(linksgehen, (spieler1.x,spieler1.y)) 
 
 
 screen = pygame.display.set_mode([1290,717])#Erzeugt Fenster mit Höhe und Breite in Pixeln
@@ -68,6 +77,7 @@ barrier1 = pygame.draw.rect(screen, (0,0,0),(800, 112, 77, 456), 0)
 barrier2 = pygame.draw.rect(screen, (0,0,0),(0, 397, 677, 82), 0)
 barrier3 = pygame.draw.rect(screen, (100,100,100),(0, 250, 677, 82), 0)
 door = pygame.draw.rect(screen, (100,100,100),(657, 332, 20, 66), 0)
+ziel = pygame.draw.rect(screen, (200,10,47), (1200, 100, 50,50), 0)
 Walls = [rechteWand, linkeWand, obereWand, barrier1, barrier2, barrier3, untereWand, door]
 richtung = [1,0,0,0]
 dorrad = pygame.draw.rect(screen,(0,0,0), (630, 332, 90, 66), 0) #Radius um Tür für Interaktion
@@ -123,7 +133,7 @@ while Go:
             spieler1.y=save2y
     
     
-    screen.blit(linksgehen, (spieler1.x,spieler1.y))    
+       
     if savex != spieler1.x or savey != spieler1.y:
         save2x = savex
         save2y = savey
@@ -132,7 +142,7 @@ while Go:
         savey = spieler1.y
     #richtung = [0,0,0,0,1] Links,Rechts, Hoch, Runter, Stehen
     clock.tick(30)
-    barrier4 = pygame.draw.rect(screen, (200,200,100),(0, 250, 677, 82), 0)   
+       
     zeichnen() 
      
 
