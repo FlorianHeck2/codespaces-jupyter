@@ -1,7 +1,13 @@
 import sqlite3
-con = sqlite3.connect("tutorial.db")
-
+con = sqlite3.connect("gamesave.db")
 cur = con.cursor()
+res = cur.execute("Select * FROM gamesaves")
+for row in cur.execute("SELECT * FROM gamesaves"):
+    print(row)
+    a = row[0]
+    b = row[1]
+    print(a)
+    print(b)
 
 
 # data = [
@@ -22,5 +28,5 @@ cur = con.cursor()
 # res.fetchone()
 # ('movie',)
 # con.commit
-for row in cur.execute("SELECT year, title FROM movie ORDER BY year"):
-    print(row)
+# for row in cur.execute("SELECT year, title FROM movie ORDER BY year"):
+#     print(row)
