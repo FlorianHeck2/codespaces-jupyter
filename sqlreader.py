@@ -2,7 +2,7 @@ import sqlite3
 con = sqlite3.connect("gamesave.db")
 cur = con.cursor()
 res = cur.execute("Select * FROM gamesaves")
-for row in cur.execute("SELECT * FROM gamesaves"):
+for row in cur.execute("SELECT * FROM gamesaves"): 
     print(row)
     a = row[0]
     b = row[1]
