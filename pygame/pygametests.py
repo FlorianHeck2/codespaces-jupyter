@@ -1,6 +1,7 @@
 #Bei diesem Projekt handelt es sich um eine Übung anhand eines Tutorials für pygame
 import pygame
 import sys
+import sqlite3
 
 pygame.init()#Initalisiert pygame
 hintergrund = pygame.image.load("Grafiken/hintergrund.png")#Pfad zu Bild

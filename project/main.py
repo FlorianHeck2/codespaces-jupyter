@@ -1,5 +1,6 @@
 import pygame
 import sys
+import sqlite3
 linksgehen = pygame.image.load("project/Grafiken/Mainbild.png")
 rechtsgehen = pygame.image.load("project/Grafiken/Mainbild.png")
 hochgehen = pygame.image.load("project/Grafiken/Mainbild.png")
@@ -7,6 +8,19 @@ runtergehen = pygame.image.load("project/Grafiken/Mainbild.png")
 Fackelschein = pygame.image.load("project/Grafiken/blurr.png")
 hintergrund = pygame.image.load("project/Grafiken/background.png")
 Tuere = False
+
+connection = sqlite3.connect("gamesave.db")
+cursor = connection.cursor()
+for row in cursor.execute("SELECT * FROM position"): 
+    a = row[0]
+    b = row[1]
+
+
+
+
+
+
+
 def winning():
     print("you won")
     global Go
@@ -67,7 +81,8 @@ def zeichnen():
 
 screen = pygame.display.set_mode([1290,717])#Erzeugt Fenster mit Höhe und Breite in Pixeln
 clock = pygame.time.Clock()
-spieler1 = spieler(10,350,4,42,46,[0,0,0,0,1],0,0)
+#spieler1 = spieler(10,350,4,42,46,[0,0,0,0,1],0,0)
+spieler1 = spieler(a,b,4,42,46,[0,0,0,0,1],0,0)
 
 linkeWand = pygame.draw.rect(screen, (0,0,0), (0,0,2,717), 0)
 obereWand = pygame.draw.rect(screen, (0,0,0), (0,0,1278,1),0)
@@ -94,7 +109,15 @@ while Go:
     screen.blit(hintergrund, (0,0))
     gedrueckt = pygame.key.get_pressed()
     for event in pygame.event.get():#Tastatur/Spielefenstereingaben abgreifen
-        if event.type ==pygame.QUIT: sys.exit()#Spiel schließen
+        if event.type ==pygame.QUIT: 
+            a = spieler1.x
+            b = spieler1.y
+            cursor.execute("DELETE FROM position")
+            cursor.execute("INSERT INTO position(xcord, ycord) values (?, ?)",(a, b))
+            connection.commit()
+            connection.close()
+            pygame.quit()
+            sys.exit()#Spiel schließen
     counter = 0
     if doorcount != 0: doorcount -= 1 #Zählvariable, um "Türspammen" zu verhindern
     elif gedrueckt[pygame.K_e]:

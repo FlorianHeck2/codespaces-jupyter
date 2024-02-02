@@ -4,10 +4,10 @@ cursor = connection.cursor()
 sql_command = """CREATE TABLE gamesaves (
     value INTEGER PRIMARY KEY,
     wave INTEGER);"""
-
-sql_command = """INSERT INTO gamesaves(value, wave)
-    Values (4, 10)"""
-
+#spieler1 = spieler(10,350,4,42,46,[0,0,0,0,1],0,0)
+sql_command = """INSERT INTO position(xcord, ycord)
+    Values (10, 350)"""
+#sql_command = """DELETE FROM position"""
 cursor.execute(sql_command)
 connection.commit()
 connection.close()
