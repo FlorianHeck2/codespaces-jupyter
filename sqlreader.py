@@ -8,12 +8,12 @@ for row in cur.execute("SELECT * FROM position"):
     b = row[1]
     print(a)
     print(b)
-for row in cur.execute("SELECT * FROM gamesaves"): 
-    print(row)
-    a = row[0]
-    b = row[1]
-    print(a)
-    print(b)
+# for row in cur.execute("SELECT * FROM gamesaves"): 
+#     print(row)
+#     a = row[0]
+#     b = row[1]
+#     print(a)
+#     print(b)
 
 
 # data = [
