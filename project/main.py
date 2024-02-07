@@ -24,6 +24,12 @@ for row in cursor.execute("SELECT * FROM position"):
 def winning():
     print("you won")
     global Go
+    spieler1.x=10
+    spieler1.y=350
+    cursor.execute("DELETE FROM position")
+    cursor.execute("INSERT INTO position(xcord, ycord) values (?, ?)",(spieler1.x, spieler1.y))
+    connection.commit()
+    connection.close()
     Go=False
 class spieler:
     def __init__(self,x,y,geschw,breite,hoehe,richtg,schritteLinks,schritteRechts):
